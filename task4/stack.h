@@ -39,6 +39,7 @@ public:
 			in >> tmp;
 			s.push(tmp);
 		}
+		return in;
 	}
 };
 
