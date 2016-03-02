@@ -13,8 +13,11 @@ int main(){
 	stack <string> st;
 	int stack_len = 10;
 	rand_input(stack_len, st);
-	// input(stack_len, st);
 	output(st);
+
+	stack <string> st1;
+	input(stack_len, st1);
+	output(st1);
 	return 0;
 }
 
@@ -37,8 +40,9 @@ void input(int &stack_len, stack <string> &st){
 	string temp;
 	cout << "Length of stack: ";
 	cin >> stack_len;
+	cin.ignore();   // smtimes getline() reads '\n' symbol
 	for(int i = 0; i < stack_len; ++i){
-		cin >> temp;
+		getline(cin, temp);
 		st.push(temp);
 	}
 }
