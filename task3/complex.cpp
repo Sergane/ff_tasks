@@ -10,6 +10,8 @@ Complex::Complex(double par_a, double par_b){
 }
 
 Complex::Complex(const Complex & num){
+	if(&num == this)
+		return;
 	a = num.a;
 	b = num.b;
 }
@@ -19,27 +21,21 @@ void Complex::init(double par_a, double par_b){
 	b = par_b;
 }
 
-Complex Complex::operator=(Complex num){
+Complex& Complex::operator=(const Complex & num){
 	a = num.a;
 	b = num.b;
-	return num;
+	return *this;
 }
 
-Complex Complex::operator+(Complex num){
-	Complex temp;
-	temp.a = a + num.a;
-	temp.b = b + num.b;
-	return temp;
+Complex Complex::operator+(Complex & num){
+	return Complex(a + num.a, b + num.b);
 }
 
-Complex Complex::operator-(Complex num){
-	Complex temp;
-	temp.a = a - num.a;
-	temp.b = b - num.b;
-	return temp;
+Complex Complex::operator-(Complex & num){
+	return Complex(a - num.a, b - num.b);
 }
 
-Complex Complex::operator*(Complex num){
+Complex Complex::operator*(Complex & num){
 	// (ac-bd, ad+bc)
 	double c = num.a;
 	double d = num.b;
@@ -49,7 +45,7 @@ Complex Complex::operator*(Complex num){
 	return temp;
 }
 
-Complex Complex::operator/(Complex num){
+Complex Complex::operator/(Complex & num){
 	// (ac+bd, bc-ad) / (c^2 + d^2)
 	double c = num.a;
 	double d = num.b;
@@ -61,13 +57,13 @@ Complex Complex::operator/(Complex num){
 	return temp;
 }
 
-bool Complex::equ(Complex x, Complex y){
+bool Complex::equ(Complex & x, Complex & y){
 	if(x.a == y.a && x.b == y.b)
 		return true;
 	return false;
 }
 
-Complex Complex::conj(Complex x){
+Complex Complex::conj(Complex & x){
 	Complex temp;
 	temp.a = x.a;
 	temp.b = -x.b;
