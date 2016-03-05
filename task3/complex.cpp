@@ -1,8 +1,17 @@
 #include "complex.h"
+#include <iostream>
+#include <typeinfo>
+
+using namespace std;
 
 Complex::Complex(double par_a, double par_b){
 	a = par_a;
 	b = par_b;
+}
+
+Complex::Complex(const Complex & num){
+	a = num.a;
+	b = num.b;
 }
 
 void Complex::init(double par_a, double par_b){
@@ -10,60 +19,57 @@ void Complex::init(double par_a, double par_b){
 	b = par_b;
 }
 
-Complex& Complex::operator=(Complex & num){
+Complex Complex::operator=(Complex num){
 	a = num.a;
 	b = num.b;
 	return num;
 }
 
-Complex& Complex::operator+(Complex & num){
-	Complex *temp;
-	*temp = *this;
-	temp->a += num.a;
-	temp->b += num.b;
-	return *temp;
+Complex Complex::operator+(Complex num){
+	Complex temp;
+	temp.a = a + num.a;
+	temp.b = b + num.b;
+	return temp;
 }
 
-Complex& Complex::operator-(Complex & num){
-	Complex *temp;
-	*temp = *this;
-	temp->a -= num.a;
-	temp->b -= num.b;
-	return *temp;
+Complex Complex::operator-(Complex num){
+	Complex temp;
+	temp.a = a - num.a;
+	temp.b = b - num.b;
+	return temp;
 }
 
-Complex& Complex::operator*(Complex & num){
+Complex Complex::operator*(Complex num){
 	// (ac-bd, ad+bc)
-	// c = num.a
-	// d = num.b
-	// (a*num.a-b*num.b, a*num.b+b*num.a)
-	Complex *temp;
-	temp->a = a*num.a - b*num.b;
-	temp->b = a*num.b + b*num.a;
-	return *temp;
+	double c = num.a;
+	double d = num.b;
+	Complex temp;
+	temp.a = a*c - b*d;
+	temp.b = a*d + b*c;
+	return temp;
 }
 
-Complex& Complex::operator/(Complex & num){
+Complex Complex::operator/(Complex num){
 	// (ac+bd, bc-ad) / (c^2 + d^2)
-	// c = num.a
-	// d = num.b
-	Complex *temp;
-	temp->a = a*num.a + b*num.b;
-	temp->a /= num.a*num.a + num.b*num.b;
-	temp->b = -a*num.b + b*num.a;
-	temp->b /= num.a*num.a + num.b*num.b;
-	return *temp;
+	double c = num.a;
+	double d = num.b;
+	Complex temp;
+	temp.a = a*c + b*d;
+	temp.a /= c*c + d*d;
+	temp.b = b*c - a*d;
+	temp.b /= c*c + d*d;
+	return temp;
 }
 
-bool Complex::equ(Complex & x, Complex & y){
+bool Complex::equ(Complex x, Complex y){
 	if(x.a == y.a && x.b == y.b)
 		return true;
 	return false;
 }
 
-Complex& Complex::conj(Complex & x){
-	Complex *temp;
-	temp->a = x.a;
-	temp->b = -x.b;
-	return *temp;
+Complex Complex::conj(Complex x){
+	Complex temp;
+	temp.a = x.a;
+	temp.b = -x.b;
+	return temp;
 }
