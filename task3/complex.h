@@ -15,5 +15,6 @@ public:
 };
 
 class ColorComplex: public Complex{
-
+public:
+	double color;
 };

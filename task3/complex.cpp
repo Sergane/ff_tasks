@@ -64,8 +64,5 @@ bool Complex::equ(Complex & x, Complex & y){
 }
 
 Complex Complex::conj(Complex & x){
-	Complex temp;
-	temp.a = x.a;
-	temp.b = -x.b;
-	return temp;
+	return Complex(x.a, -x.b);
 }
